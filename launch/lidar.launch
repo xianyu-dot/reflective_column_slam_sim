@@ -1,0 +1,51 @@
+<launch>
+  <!-- 1. 启动 Gazebo 环境 -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!-- 注意这里修改了包名 -->
+    <arg name="world_name" value="$(find reflective_slam_sim)/worlds/tunnel.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+  </include>
+
+  <!-- 2. 加载机器人模型 -->
+  <!-- 注意这里修改了包名 -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find reflective_slam_sim)/urdf/lidar_simulation.xacro" />
+
+  <!-- 3. 在 Gazebo 中生成模型 -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model my_lidar_robot -param robot_description" />
+
+  <!-- 4. 发布状态 (TF) -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  
+  <!-- 【修改】注释掉冗余的 map -> odom 变换，避免与 SLAM 冲突 -->
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom_broadcaster" 
+        args="0 0 0 0 0 0 map odom" /> -->
+
+  <!-- 【保留】连接 Simulation 的 map 和 SLAM 的 camera_init，建立全局原点 -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_camera_init_broadcaster" 
+        args="0 0 0 0 0 0 map camera_init" />
+
+  <!-- 【新增】连接 SLAM 的 body 坐标系与机器人的 base_footprint 坐标系 -->
+  <!-- 解决 TF 树断裂问题，使 SLAM 能正确查找传感器 TF，并让 Rviz 正确显示机器人模型 -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="body_base_broadcaster" 
+        args="0 0 0 0 0 0 body base_footprint" />
+
+  <!-- ==================== 2. 启动 FAST-LIVO ==================== -->
+  <!-- 注意：FAST-LIVO 的包名通常是 fast_livo (带下划线)，请用 rospack list 确认 -->
+  <!-- <arg name="map_file_path" default="$(find reflective_slam_sim)/config/sim_fastlivo.yaml"/> -->
+  <rosparam command="load" file="$(find reflective_slam_sim)/config/sim_fastlivo.yaml" />
+
+  <!-- 启动 fastlivo_mapping 节点 -->
+  <node pkg="fast_livo" type="fastlivo_mapping" name="laserMapping" output="screen">
+    <!-- 加载参数文件 -->
+    <rosparam file="$(find reflective_slam_sim)/config/camera_pinhole.yaml" />
+  </node>
+
+  <!-- 6. 启动 Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find reflective_slam_sim)/rviz/fastlivo.rviz"/>
+
+    <!-- ==================== 【新增】键盘控制节点 ==================== -->
+  <!-- 注意：这将弹出一个新的黑色终端窗口，请在该窗口被激活(选中)的状态下按键盘 -->
+  <node pkg="reflective_slam_sim" type="simple_teleop_node" name="teleop_control" output="screen" launch-prefix="gnome-terminal --"/>
+</launch>

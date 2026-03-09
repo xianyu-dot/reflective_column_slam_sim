@@ -1,0 +1,151 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- ================= 隧道墙壁 (长60m, 宽6m) ================= -->
+    <model name="tunnel_walls">
+      <static>true</static>
+      <link name="link">
+        <!-- 左墙 (y=3) -->
+        <visual name="wall_left">
+          <pose>0 3 2.0 0 0 0</pose>
+          <geometry><box><size>60.0 0.2 4.0</size></box></geometry>
+          <material><script><name>Gazebo/Grey</name></script></material>
+        </visual>
+        <collision name="col_left">
+          <pose>0 3 2.0 0 0 0</pose>
+          <geometry><box><size>60.0 0.2 4.0</size></box></geometry>
+        </collision>
+
+        <!-- 右墙 (y=-3) -->
+        <visual name="wall_right">
+          <pose>0 -3 2.0 0 0 0</pose>
+          <geometry><box><size>60.0 0.2 4.0</size></box></geometry>
+          <material><script><name>Gazebo/Grey</name></script></material>
+        </visual>
+        <collision name="col_right">
+          <pose>0 -3 2.0 0 0 0</pose>
+          <geometry><box><size>60.0 0.2 4.0</size></box></geometry>
+        </collision>
+        
+        <!-- 封顶 (可选，为了采光好暂时不封顶，或者只封尽头) -->
+        <!-- 前端封口 -->
+        <visual name="wall_front">
+          <pose>30 0 2.0 0 0 0</pose>
+          <geometry><box><size>0.2 6.0 4.0</size></box></geometry>
+          <material><script><name>Gazebo/Grey</name></script></material>
+        </visual>
+        <collision name="col_front">
+          <pose>30 0 2.0 0 0 0</pose>
+          <geometry><box><size>0.2 6.0 4.0</size></box></geometry>
+        </collision>
+
+        <!-- 后端封口 -->
+        <visual name="wall_back">
+          <pose>-30 0 2.0 0 0 0</pose>
+          <geometry><box><size>0.2 6.0 4.0</size></box></geometry>
+          <material><script><name>Gazebo/Grey</name></script></material>
+        </visual>
+        <collision name="col_back">
+          <pose>-30 0 2.0 0 0 0</pose>
+          <geometry><box><size>0.2 6.0 4.0</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- ================= 反光柱生成 (每5米一个) ================= -->
+    <!-- 由于 SDF 不支持循环语法，这里列举位置：从 -25 到 +25 -->
+    <!-- 坐标 X: -25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25 -->
+    <!-- 左右两侧 Y: +/- 2.5 (离墙0.5米) -->
+
+    <!-- 定义一个宏模板不太方便，直接用多个Model，为了代码整洁，这里列举主要的部分 -->
+    
+    <!-- 1. 左侧反光柱列 -->
+    <model name="poles_left">
+      <static>true</static>
+      <link name="link">
+        <!-- 视觉与碰撞定义 -->
+        <!-- 为了节省代码行数，我们将所有柱子放在一个 Link 里，利用 pose 偏移 -->
+        
+        <visual name="v_lp_1"><pose>-25 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_lp_1"><pose>-25 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_lp_2"><pose>-20 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_lp_2"><pose>-20 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_lp_3"><pose>-15 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_lp_3"><pose>-15 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_lp_4"><pose>-10 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_lp_4"><pose>-10 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_lp_5"><pose>-5 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_lp_5"><pose>-5 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_lp_6"><pose>0 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_lp_6"><pose>0 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_lp_7"><pose>5 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_lp_7"><pose>5 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_lp_8"><pose>10 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_lp_8"><pose>10 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+        
+        <visual name="v_lp_9"><pose>15 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_lp_9"><pose>15 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_lp_10"><pose>20 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_lp_10"><pose>20 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_lp_11"><pose>25 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_lp_11"><pose>25 2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+      </link>
+    </model>
+
+    <!-- 2. 右侧反光柱列 (位置 y = -2.5) -->
+    <model name="poles_right">
+      <static>true</static>
+      <link name="link">
+        <visual name="v_rp_1"><pose>-25 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_rp_1"><pose>-25 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_rp_2"><pose>-20 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_rp_2"><pose>-20 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_rp_3"><pose>-15 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_rp_3"><pose>-15 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+        
+        <visual name="v_rp_4"><pose>-10 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_rp_4"><pose>-10 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_rp_5"><pose>-5 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_rp_5"><pose>-5 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_rp_6"><pose>0 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_rp_6"><pose>0 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_rp_7"><pose>5 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_rp_7"><pose>5 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_rp_8"><pose>10 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_rp_8"><pose>10 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_rp_9"><pose>15 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_rp_9"><pose>15 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_rp_10"><pose>20 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_rp_10"><pose>20 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+
+        <visual name="v_rp_11"><pose>25 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><material><script><name>Gazebo/White</name></script></material></visual>
+        <collision name="c_rp_11"><pose>25 -2.5 0.5 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>1</length></cylinder></geometry><laser_retro>200</laser_retro></collision>
+      </link>
+    </model>
+
+  </world>
+</sdf>

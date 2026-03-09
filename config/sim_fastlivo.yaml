@@ -1,0 +1,106 @@
+common:
+  # 话题名称 (必须与 gazebo 插件一致)
+  lid_topic: "/velodyne_points"
+  imu_topic: "/imu/data"
+  img_topic: "/camera/image_raw" # 确保 gazebo 发布的是这个
+  img_en: 0
+  lidar_en: 1
+  ros_driver_bug_fix: false # 仿真不需要修复时间戳 bug
+
+# 相机内参 (基于 640x480, FOV~1.39)
+# camera:
+#   camera_dist_coeff: [0.0, 0.0, 0.0, 0.0, 0.0] # 仿真无畸变
+#   camera_intrinsic: [381.4, 0.0, 320.0,  # fx, 0, cx
+#                      0.0, 381.4, 240.0,  # 0, fy, cy
+#                      0.0, 0.0, 1.0]
+
+extrin_calib:
+  # LiDAR 相对于 IMU 的位姿 (T_lb)
+  # URDF 中 LiDAR(0.1, 0, 0.085), IMU(0, 0, 0.05) -> Diff: [0.1, 0, 0.035]
+  extrinsic_T: [0.1, 0.0, 0.035] 
+  extrinsic_R: [1, 0, 0, 
+                0, 1, 0, 
+                0, 0, 1]
+
+  # Camera(Optical) 相对于 LiDAR 的位姿
+  # Rcl: 旋转矩阵 (Optical -> Body/LiDAR)
+  # Pcl: 平移向量 (Camera - LiDAR) = [0.1, 0, 0.115]
+  Rcl: [0.0, 0.0, 1.0,
+        -1.0, 0.0, 0.0,
+        0.0, -1.0, 0.0]
+        
+  Pcl: [0.1, 0.0, 0.115]
+
+time_offset: 
+  imu_time_offset: 0.0 # 仿真时间完美同步
+  img_time_offset: 0.0
+  exposure_time_init: 0.0
+
+preprocess:
+  point_filter_num: 1    # 仿真点云不需要降采样太狠
+  filter_size_surf: 0.1
+  lidar_type: 2          # 重点：2 代表 Velodyne (机械旋转式)
+  scan_line: 32          # 你的仿真雷达线数
+  blind: 0.5             # 最小距离，防止扫到车身
+
+vio:
+  max_iterations: 5
+  outlier_threshold: 1000 
+  img_point_cov: 10 # 仿真图像很清晰，协方差可以小一点
+  patch_size: 8
+  patch_pyrimid_level: 4
+  normal_en: true
+  raycast_en: false
+  inverse_composition_en: false
+  exposure_estimate_en: true # 仿真光照恒定，其实可以关，但开着也无妨
+  inv_expo_cov: 0.1
+
+imu:
+  imu_en: true
+  imu_int_frame: 30
+  # 仿真 IMU 噪声极低，参数调小
+  acc_cov: 0.1 
+  gyr_cov: 0.1 
+  b_acc_cov: 0.0001 
+  b_gyr_cov: 0.0001 
+
+lio:
+  max_iterations: 5
+  dept_err: 0.02
+  beam_err: 0.05
+  min_eigen_value: 0.0025
+  voxel_size: 0.4        # 室内/隧道环境 0.4-0.5 比较合适
+  max_layer: 2
+  max_points_num: 50
+  layer_init_num: [5, 5, 5, 5, 5]
+
+local_map:  
+  map_sliding_en: false
+  half_map_size: 100
+  sliding_thresh: 8
+
+uav:
+  imu_rate_odom: false
+  gravity_align_en: false # 仿真一开始就是平的，不需要重力对齐
+
+publish:
+  dense_map_en: true
+  pub_effect_point_en: true # 开启这个可以看到特征点
+  pub_plane_en: false
+  pub_scan_num: 1
+  blind_rgb_points: 0.0
+
+evo:
+  seq_name: "sim_tunnel"
+  pose_output_en: false
+
+pcd_save:
+  pcd_save_en: false
+  type: 0 
+  colmap_output_en: false 
+  filter_size_pcd: 0.15
+  interval: -1
+
+image_save:
+  img_save_en: false
+  interval: 1

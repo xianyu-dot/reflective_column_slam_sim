@@ -1,0 +1,657 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="tunnel_world">
+    <include><uri>model://sun</uri></include>
+    <include><uri>model://ground_plane</uri></include>
+
+    <model name="tunnel_walls">
+      <static>true</static>
+      <link name="link">
+        <!-- 左墙 -->
+        <visual name="wall_left_vis">
+          <pose>100.0 4.0 2.0 0 0 0</pose>
+          <geometry><box><size>200.0 0.2 4.0</size></box></geometry>
+          <material><script><name>Gazebo/Grey</name></script></material>
+        </visual>
+        <collision name="wall_left_col">
+          <pose>100.0 4.0 2.0 0 0 0</pose>
+          <geometry><box><size>200.0 0.2 4.0</size></box></geometry>
+        </collision>
+
+        <!-- 右墙 -->
+        <visual name="wall_right_vis">
+          <pose>100.0 -4.0 2.0 0 0 0</pose>
+          <geometry><box><size>200.0 0.2 4.0</size></box></geometry>
+          <material><script><name>Gazebo/Grey</name></script></material>
+        </visual>
+        <collision name="wall_right_col">
+          <pose>100.0 -4.0 2.0 0 0 0</pose>
+          <geometry><box><size>200.0 0.2 4.0</size></box></geometry>
+        </collision>
+        
+        <!-- 天花板 (可选，为了像隧道) -->
+        <visual name="ceiling">
+          <pose>100.0 0 4.0 0 0 0</pose>
+          <geometry><box><size>200.0 8.0 0.1</size></box></geometry>
+          <material><script><name>Gazebo/DarkGrey</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_0">
+      <pose>0.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_1">
+      <pose>5.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_2">
+      <pose>10.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_3">
+      <pose>15.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_4">
+      <pose>20.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_5">
+      <pose>25.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_6">
+      <pose>30.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_7">
+      <pose>35.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_8">
+      <pose>40.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_9">
+      <pose>45.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_10">
+      <pose>50.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_11">
+      <pose>55.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_12">
+      <pose>60.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_13">
+      <pose>65.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_14">
+      <pose>70.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_15">
+      <pose>75.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_16">
+      <pose>80.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_17">
+      <pose>85.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_18">
+      <pose>90.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_19">
+      <pose>95.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_20">
+      <pose>100.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_21">
+      <pose>105.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_22">
+      <pose>110.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_23">
+      <pose>115.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_24">
+      <pose>120.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_25">
+      <pose>125.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_26">
+      <pose>130.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_27">
+      <pose>135.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_28">
+      <pose>140.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_29">
+      <pose>145.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_30">
+      <pose>150.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_31">
+      <pose>155.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_32">
+      <pose>160.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_33">
+      <pose>165.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_34">
+      <pose>170.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_35">
+      <pose>175.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_36">
+      <pose>180.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_37">
+      <pose>185.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_38">
+      <pose>190.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_39">
+      <pose>195.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ref_pole_40">
+      <pose>200.0 3.0 0.5 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <laser_retro>200.0</laser_retro>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.1</radius><length>1.0</length></cylinder></geometry>
+          <material><script><name>Gazebo/White</name></script></material>
+        </visual>
+      </link>
+    </model>
+    
+  </world>
+</sdf>
